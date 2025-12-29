@@ -10,28 +10,47 @@ import Button from '../Button';
 
 const Header = () => {
   return (
-    <header>
-      <SuperHeader>
-        <Row>
-          <ActionGroup>
+    <>
+      <header>
+        <SuperHeader>
+          <Row>
+            <ActionGroup>
+              <button>
+                <Search size={24} />
+              </button>
+              <button>
+                <Menu size={24} />
+              </button>
+            </ActionGroup>
+            <ActionGroup>
+              <button>
+                <User size={24} />
+              </button>
+            </ActionGroup>
+          </Row>
+        </SuperHeader>
+        <MainHeader>
+
+          <DesktopActionGroup>
             <button>
-              <Search size={24} />
-            </button>
-            <button>
-              <Menu size={24} />
-            </button>
-          </ActionGroup>
-          <ActionGroup>
-            <button>
-              <User size={24} />
-            </button>
-          </ActionGroup>
-        </Row>
-      </SuperHeader>
-      <MainHeader>
-        <Logo />
-      </MainHeader>
-    </header>
+                <Search size={24} />
+              </button>
+              <button>
+                <Menu size={24} />
+              </button>
+          </DesktopActionGroup>
+
+          
+
+          <Logo />
+
+          <SubscribeWrapper>
+            <Button>Subscribe</Button>
+            <AlreadySubscribed href="/">Already a subscriber?</AlreadySubscribed>
+          </SubscribeWrapper>
+        </MainHeader>
+      </header>
+    </>
   );
 };
 
@@ -39,6 +58,10 @@ const SuperHeader = styled.div`
   padding: 16px 0;
   background: var(--color-gray-900);
   color: white;
+
+  @media ${QUERIES.laptopAndUp} {
+    display: none;
+  }
 `;
 
 const Row = styled(MaxWidthWrapper)`
@@ -59,12 +82,52 @@ const ActionGroup = styled.div`
   }
 `;
 
+const DesktopActionGroup = styled(ActionGroup)`
+  @media not ${QUERIES.laptopAndUp} {
+    display: none;
+  }
+`;
+
 const MainHeader = styled(MaxWidthWrapper)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
   margin-top: 32px;
   margin-bottom: 48px;
+
+  @media ${QUERIES.tabletAndUp} {
+    margin-top: 48px;
+    margin-bottom: 72px;
+  }
+
+  @media ${QUERIES.laptopAndUp} {
+    margin-top: 16px;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: baseline;
+  }
 `;
+
+const SubscribeWrapper = styled.div`
+
+  display: none;
+  
+  @media ${QUERIES.laptopAndUp} {
+    justify-self: end;
+    align-self: end;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+`
+
+const AlreadySubscribed = styled.a`
+  font-size: ${14/16}rem;
+  text-decoration: underline;
+  font-style: italic;
+
+  &:hover {
+    text-decoration: none;
+  }
+`
 
 export default Header;
